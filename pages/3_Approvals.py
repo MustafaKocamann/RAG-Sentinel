@@ -5,7 +5,7 @@ from components.ui import empty_state, error_state, page_header, status_badge
 from services.api_client import APIError, api_client
 from utils.styles import inject_styles
 
-st.set_page_config(page_title="Approvals | Zorvanta", page_icon="✓", layout="wide")
+st.set_page_config(page_title="Approvals | Zorvanta", layout="wide")
 inject_styles()
 client = api_client()
 render_shell(client)

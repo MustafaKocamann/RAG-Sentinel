@@ -5,13 +5,13 @@ from components.ui import empty_state, error_state, page_header, status_badge
 from services.api_client import APIError, api_client
 from utils.styles import inject_styles
 
-st.set_page_config(page_title="Documents | Zorvanta", page_icon="▤", layout="wide")
+st.set_page_config(page_title="Documents | Zorvanta", layout="wide")
 inject_styles()
 client = api_client()
 render_shell(client)
 page_header("Knowledge operations", "Documents", "Review indexed sources, processing state, and workspace coverage.")
 
-if st.button("Refresh documents", icon="↻"):
+if st.button("Refresh documents"):
     st.cache_data.clear()
 try:
     documents = client.documents()

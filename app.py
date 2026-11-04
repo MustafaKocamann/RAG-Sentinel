@@ -8,7 +8,6 @@ from utils.styles import inject_styles
 
 st.set_page_config(
     page_title="Zorvanta | Knowledge Copilot",
-    page_icon="✦",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -30,7 +29,7 @@ if not st.session_state.messages:
 with st.container():
     st.markdown('<div class="chat-window">', unsafe_allow_html=True)
     for index, message in enumerate(st.session_state.messages):
-        with st.chat_message(message["role"], avatar="You" if message["role"] == "user" else "✦"):
+        with st.chat_message(message["role"]):
             st.markdown(message["content"])
             if message["role"] == "assistant":
                 if message.get("status") in {"guardrail_blocked", "pending_approval"}:
@@ -50,9 +49,9 @@ with st.container():
 question = st.chat_input("Ask about policies, procedures, or workspace knowledge…")
 if question:
     st.session_state.messages.append({"role": "user", "content": question})
-    with st.chat_message("user", avatar="You"):
+    with st.chat_message("user"):
         st.markdown(question)
-    with st.chat_message("assistant", avatar="✦"):
+    with st.chat_message("assistant"):
         with st.spinner("Searching governed knowledge…"):
             try:
                 result = client.chat(question, st.session_state.conversation_id)

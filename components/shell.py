@@ -15,12 +15,12 @@ def render_shell(client: APIClient) -> None:
         st.session_state["workspace"] = role
         st.session_state["role"] = st.selectbox("Access level", ["Employee", "Admin"], index=1)
         st.divider()
-        st.page_link("app.py", label="Chat", icon="◈")
-        st.page_link("pages/1_Upload_Documents.py", label="Upload documents", icon="⇧")
-        st.page_link("pages/2_Documents.py", label="Documents", icon="▤")
+        st.page_link("app.py", label="Knowledge copilot")
+        st.page_link("pages/1_Upload_Documents.py", label="Upload documents")
+        st.page_link("pages/2_Documents.py", label="Document library")
         if st.session_state["role"] == "Admin":
-            st.page_link("pages/3_Approvals.py", label="Approvals", icon="✓")
-            st.page_link("pages/4_Metrics_Logs.py", label="Metrics & logs", icon="◌")
+            st.page_link("pages/3_Approvals.py", label="Approval center")
+            st.page_link("pages/4_Metrics_Logs.py", label="Metrics & logs")
         st.divider()
         st.caption(f"API · {'MOCK' if client.mock else 'CONNECTED'}")
         st.caption(os.getenv("API_BASE_URL", "http://localhost:8000"))

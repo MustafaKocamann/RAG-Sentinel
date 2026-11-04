@@ -16,8 +16,8 @@ def status_badge(status: str) -> str:
 
 
 def error_state(message: str) -> None:
-    st.error(message, icon="!")
+    st.error(message)
 
 
 def empty_state(message: str) -> None:
-    st.info(message, icon="⌘")
+    st.info(message)

@@ -8,7 +8,7 @@ from services.api_client import APIClient
 
 def render_shell(client: APIClient) -> None:
     with st.sidebar:
-        st.markdown('<div class="zorvanta-brand">zor<span>vanta</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="zorvanta-brand">Zor<span>vanta</span></div>', unsafe_allow_html=True)
         st.markdown('<div class="sidebar-kicker">ENTERPRISE KNOWLEDGE COPILOT</div>', unsafe_allow_html=True)
         st.divider()
         st.markdown(

@@ -24,9 +24,13 @@ def inject_styles() -> None:
         .context-panel .context-copy { color:#B8D0DE; font-size:.72rem; margin-top:.22rem; }
         [data-testid="stSidebar"] [data-testid="stSelectbox"] { margin:.15rem 0 .7rem; }
         [data-testid="stSidebar"] [data-testid="stSelectbox"] label { color:#C9E1EC !important; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; }
-        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] > div { background:#FFFFFF; border:1px solid #8FC5D1; border-radius:7px; min-height:2.55rem; box-shadow:0 2px 8px rgba(0,0,0,.12); }
-        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] * { color:#0A2540 !important; font-weight:700; }
-        .access-status { display:flex; align-items:center; gap:.45rem; background:rgba(0,169,157,.16); border:1px solid rgba(58,211,197,.35); border-radius:7px; padding:.52rem .7rem; color:#E9FFFC !important; font-size:.74rem; margin:.1rem 0 .35rem; }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] > div { background:#173E60; border:2px solid #4ED8C8; border-radius:8px; min-height:2.7rem; box-shadow:0 0 0 2px rgba(78,216,200,.12), 0 4px 12px rgba(0,0,0,.24); }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] > div:hover { background:#1D527A; border-color:#7AF2E2; }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] > div:focus-within { background:#1D527A; border-color:#FFFFFF; box-shadow:0 0 0 3px rgba(78,216,200,.35); }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] * { color:#FFFFFF !important; font-weight:800; }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] [data-baseweb="select"] svg { fill:#7AF2E2 !important; color:#7AF2E2 !important; }
+        [data-testid="stSidebar"] [data-testid="stSelectbox"] label { color:#FFFFFF !important; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.11em; }
+        .access-status { display:flex; align-items:center; gap:.45rem; background:#0F806F; border:1px solid #4ED8C8; border-radius:7px; padding:.52rem .7rem; color:#FFFFFF !important; font-size:.74rem; margin:.1rem 0 .35rem; }
         .access-status strong { color:#FFFFFF !important; }
         .access-dot { width:7px; height:7px; background:#4EE5D2; border-radius:50%; box-shadow:0 0 0 3px rgba(78,229,210,.16); }
         .topbar { display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:1.75rem; border-bottom:1px solid var(--line); margin-bottom:2rem; }

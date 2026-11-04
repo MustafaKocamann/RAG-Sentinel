@@ -11,3 +11,7 @@ langgraph
 pinecone
 python-dotenv
 glassflow-rius
+streamlit
+plotly
+pandas
+requests

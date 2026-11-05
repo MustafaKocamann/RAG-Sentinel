@@ -11,10 +11,13 @@ client = api_client()
 render_shell(client)
 page_header("Knowledge operations", "Upload documents", "Add governed source material to your workspace knowledge index.")
 
+if client.mock:
+    st.warning("Demo mode is active (`USE_MOCK=true`). Files are not uploaded to S3. Set `USE_MOCK=false` and configure the API before uploading.")
+
 files = st.file_uploader("Drop PDF or TXT files here", type=["pdf", "txt"], accept_multiple_files=True, help="Files are encrypted in transit and processed asynchronously.")
 if files:
     st.markdown(f"**{len(files)} file(s) ready**")
-    if st.button("Start secure upload", type="primary"):
+    if st.button("Start secure upload", type="primary", disabled=client.mock):
         for file in files:
             with st.status(f"Processing {file.name}", expanded=True) as status:
                 try:

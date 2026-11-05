@@ -13,6 +13,7 @@ streamlit run app.py
 ```
 
 Set `USE_MOCK=true` to demo the complete UI without a backend. For a live service, set `USE_MOCK=false` and point `API_BASE_URL` at the FastAPI service.
+Live uploads also require valid AWS credentials, `AWS_REGION`, and `S3_BUCKET_NAME` (or `S3_BUCKET`) in `.env`. In mock mode, the upload control is disabled because no file is written to S3.
 
 ## Frontend layout
 

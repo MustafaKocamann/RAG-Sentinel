@@ -67,6 +67,8 @@ def create_upload(body:Upload,p:Principal=Depends(principal)):
     suffix=Path(body.filename).suffix.lower()
     if suffix not in {'.pdf','.docx','.txt','.md'}:
         raise HTTPException(400,'Allowed types: PDF, DOCX, TXT, MD')
+    if not settings().s3_bucket:
+        raise HTTPException(503,'S3 bucket is not configured. Set S3_BUCKET or S3_BUCKET_NAME.')
     doc_id=str(uuid.uuid4())
     key=f'tenants/{p.tenant}/incoming/{doc_id}/v1{suffix}'
     with connection() as conn:

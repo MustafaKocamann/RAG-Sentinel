@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,7 +8,10 @@ class Settings(BaseSettings):
     aws_region:str='eu-north-1'
     aws_access_key_id:str=''
     aws_secret_access_key:str=''
-    s3_bucket:str=''
+    s3_bucket: str = Field(
+        default='',
+        validation_alias=AliasChoices('S3_BUCKET', 'S3_BUCKET_NAME'),
+    )
     database_url:str=''  # Render PostgreSQL External Database URL
     bedrock_embed_model:str='amazon.titan-embed-text-v2:0'
     bedrock_chat_model:str='amazon.nova-lite-v1:0'

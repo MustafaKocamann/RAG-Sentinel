@@ -78,9 +78,11 @@ class APIClient:
                 raise first_error
 
     def upload_to_presigned_url(self, url: str, content: bytes, headers: dict[str, str] | None = None) -> None:
-        if self.mock or not url:
+        if self.mock:
             time.sleep(0.15)
             return
+        if not url:
+            raise APIError("The upload service did not return a secure storage URL.")
         try:
             response = requests.put(url, data=content, headers=headers or {}, timeout=self.timeout)
             response.raise_for_status()

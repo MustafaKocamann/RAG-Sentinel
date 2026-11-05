@@ -41,9 +41,17 @@ with st.container():
                             st.markdown(f'<div class="source"><strong>{source.get("title", "Source")}</strong> · Page {source.get("page", "—")}<br>{source.get("snippet", "")}</div>', unsafe_allow_html=True)
                 feedback = st.columns([.08, .08, .84])
                 if feedback[0].button("👍", key=f"up-{index}", help="Helpful answer"):
-                    st.toast("Thanks — feedback recorded.")
+                    try:
+                        client.feedback(1)
+                        st.toast("Thanks — feedback recorded.")
+                    except APIError as exc:
+                        st.error(f"Feedback could not be saved: {exc}")
                 if feedback[1].button("👎", key=f"down-{index}", help="Not helpful"):
-                    st.toast("Thanks — feedback recorded.")
+                    try:
+                        client.feedback(-1)
+                        st.toast("Thanks — feedback recorded.")
+                    except APIError as exc:
+                        st.error(f"Feedback could not be saved: {exc}")
     st.markdown("</div>", unsafe_allow_html=True)
 
 question = st.chat_input("Ask about policies, procedures, or workspace knowledge…")

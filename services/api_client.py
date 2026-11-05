@@ -102,6 +102,11 @@ class APIClient:
             return {"status": "indexed", "document_id": document_id}
         return self._request("POST", "/api/documents/complete", json={"document_id": document_id})
 
+    def feedback(self, rating: int, note: str = "") -> dict[str, Any]:
+        if self.mock:
+            return {"saved": True}
+        return self._request("POST", "/api/feedback", json={"rating": rating, "note": note})
+
     def approvals(self) -> list[dict[str, Any]]:
         if self.mock:
             return [

@@ -13,9 +13,14 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices('S3_BUCKET', 'S3_BUCKET_NAME'),
     )
     database_url:str=''  # Render PostgreSQL External Database URL
-    bedrock_embed_model:str='amazon.titan-embed-text-v2:0'
-    bedrock_chat_model:str='amazon.nova-lite-v1:0'
-    embed_dim:int=1024
+    openrouter_api_key:str=''
+    openrouter_model:str='nvidia/nemotron-3-ultra-550b-a55b:free'
+    google_api_key:str=''
+    google_embed_model:str=Field(
+        default='gemini-embedding-001',
+        validation_alias=AliasChoices('GOOGLE_EMBED_MODEL', 'EMBEDDING_MODEL'),
+    )
+    embed_dim:int=768
     max_upload_bytes:int=10485760
     pinecone_api_key:str=''
     pinecone_index_name:str='rag-sentinel-index'

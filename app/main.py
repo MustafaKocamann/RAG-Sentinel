@@ -2,6 +2,7 @@ import re
 import uuid
 from pathlib import Path
 from fastapi import FastAPI, Depends, HTTPException, Request
+import psycopg
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -71,11 +72,14 @@ def create_upload(body:Upload,p:Principal=Depends(principal)):
         raise HTTPException(503,'S3 bucket is not configured. Set S3_BUCKET or S3_BUCKET_NAME.')
     doc_id=str(uuid.uuid4())
     key=f'tenants/{p.tenant}/incoming/{doc_id}/v1{suffix}'
-    with connection() as conn:
-        conn.execute('''INSERT INTO documents(id,tenant_id,title,owner_sub,allowed_groups,s3_key,status,current_version)
-                        VALUES (%s,%s,%s,%s,%s,%s,'pending',1)''',
-                        (doc_id,p.tenant,body.filename,p.subject,["workspace"],key))
-        audit(conn,p.subject,p.tenant,'upload_requested',{'document_id':doc_id})
+    try:
+        with connection() as conn:
+            conn.execute('''INSERT INTO documents(id,tenant_id,title,owner_sub,allowed_groups,s3_key,status,current_version)
+                            VALUES (%s,%s,%s,%s,%s,%s,'pending',1)''',
+                            (doc_id,p.tenant,body.filename,p.subject,["workspace"],key))
+            audit(conn,p.subject,p.tenant,'upload_requested',{'document_id':doc_id})
+    except psycopg.Error as exc:
+        raise HTTPException(503,'Database unavailable while creating the upload record. Check DATABASE_URL and database network access.') from exc
     # Browser PUTs to S3; a separate completion request triggers synchronous ingestion.
     url=client('s3').generate_presigned_url('put_object',Params={'Bucket':settings().s3_bucket,
         'Key':key,'ContentType':'application/octet-stream'},ExpiresIn=300)

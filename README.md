@@ -23,4 +23,4 @@ Live uploads also require valid AWS credentials, `AWS_REGION`, and `S3_BUCKET_NA
 - `services/api_client.py` — timeout-aware REST client and mock provider
 - `utils/styles.py` — corporate theme and responsive CSS
 
-The client supports the requested `/api/upload-url` and `/api/ingest` contract, while transparently falling back to the currently deployed `/api/documents/uploads` and `/api/documents/complete` routes.
+The client uses the deployed `/api/documents/uploads` and `/api/documents/complete` routes for the upload flow.

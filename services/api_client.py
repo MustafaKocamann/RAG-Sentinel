@@ -34,7 +34,10 @@ class APIClient:
                 raise APIError(f"{response.status_code}: {detail or 'Backend request failed'}")
             return response.json() if response.content else {}
         except requests.RequestException as exc:
-            raise APIError("The Zorvanta service is temporarily unavailable.") from exc
+            raise APIError(
+                f"The Zorvanta service is unavailable at {self.base_url}. "
+                "Start the FastAPI backend or check API_BASE_URL."
+            ) from exc
 
     def chat(self, question: str, conversation_id: str | None = None) -> dict[str, Any]:
         if self.mock:
@@ -92,13 +95,7 @@ class APIClient:
     def ingest(self, document_id: str) -> dict[str, Any]:
         if self.mock:
             return {"status": "indexed", "document_id": document_id}
-        try:
-            return self._request("POST", "/api/ingest", json={"document_id": document_id})
-        except APIError as first_error:
-            try:
-                return self._request("POST", "/api/documents/complete", json={"document_id": document_id})
-            except APIError:
-                raise first_error
+        return self._request("POST", "/api/documents/complete", json={"document_id": document_id})
 
     def approvals(self) -> list[dict[str, Any]]:
         if self.mock:

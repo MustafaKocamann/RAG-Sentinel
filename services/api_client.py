@@ -88,7 +88,12 @@ class APIClient:
             raise APIError("The upload service did not return a secure storage URL.")
         try:
             response = requests.put(url, data=content, headers=headers or {}, timeout=self.timeout)
-            response.raise_for_status()
+            if not response.ok:
+                detail = response.text.strip().replace("\n", " ")
+                raise APIError(
+                    f"S3 upload failed ({response.status_code})"
+                    + (f": {detail[:300]}" if detail else "")
+                )
         except requests.RequestException as exc:
             raise APIError("The file could not be uploaded to secure storage.") from exc
 
